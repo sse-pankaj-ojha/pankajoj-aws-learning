@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: SQS to SNS (Java 17 Lambda).
+Description: SQS to SNS.
 
 Parameters:
   SQSQueueArn:
@@ -8,24 +8,20 @@ Parameters:
     Description: The ARN of the SQS Queue
 
 Resources:
-  SqsToSnsFunction:
+  Function:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: pankajoj-sqs-to-sns-java
-      CodeUri: target/lambda-0.0.1-SNAPSHOT.jar
-      Handler: com.lambda.handler.SqsToSnsLambdaHandler::handleRequest
-      Runtime: java21
+      CodeUri: scripts/
+      Handler: app.lambdaHandler
+      Runtime: nodejs20.x
       Architectures:
         - x86_64
-      Timeout: 30
-      MemorySize: 512
-
+      Timeout: 10
       Policies:
-        - AWSLambda_FullAccess 
-        - AWSLambdaSQSQueueExecutionRole 
-        - AmazonSNSFullAccess 
-        - AmazonSQSFullAccess
-
+      - AWSLambda_FullAccess
+      - AWSLambdaSQSQueueExecutionRole
+      - AmazonSNSFullAccess
+      - AmazonSQSFullAccess
       Events:
         MySQSEvent:
           Type: SQS

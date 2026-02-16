@@ -16,7 +16,7 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - sam package --s3-bucket pankajoj-cicd-bucket --template-file samTemplate.yml --output-template-file outputSamTemplate.yml
+      - sam package --s3-bucket pankajoj-uploadsnotificationfunction-bucket --template-file samTemplate.yml --output-template-file outputSamTemplate.yml
       - ls -la build/libs
 artifacts:
   files:
